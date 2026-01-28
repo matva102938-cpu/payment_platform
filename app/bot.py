@@ -6,7 +6,8 @@ from app.database import AsyncSessionLocal
 from app.models import Trader, Order
 from sqlalchemy import select, func
 
-BOT_TOKEN = os.getenv("8413951764:AAFfkVAECaOpXiD-SfMXm1jOWgdfTQnWh_c")
+BOT_TOKEN = "8413951764:AAFfkVAECaOpXiD-SfMXm1jOWgdfTQnWh_c"
+
 
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
