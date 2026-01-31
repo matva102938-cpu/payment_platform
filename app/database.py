@@ -1,12 +1,21 @@
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
-from sqlalchemy.orm import sessionmaker
 import os
+from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
+from sqlalchemy.orm import declarative_base
 
-DATABASE_URL = os.getenv("DB_URL")  # PostgreSQL URL от Railway
+DATABASE_URL = os.getenv("DB_URL")
+if not DATABASE_URL:
+    raise RuntimeError("DB_URL is not set")
 
-engine = create_async_engine(DATABASE_URL, echo=True)
-AsyncSessionLocal = sessionmaker(engine, expire_on_commit=False, class_=AsyncSession)
+# важно: должен быть asyncpg
+if not DATABASE_URL.startswith("postgresql+asyncpg://"):
+    raise RuntimeError("DB_URL must start with postgresql+asyncpg://")
 
-async def get_db():
-    async with AsyncSessionLocal() as session:
-        yield session
+engine = create_async_engine(DATABASE_URL, echo=False)
+
+AsyncSessionLocal = async_sessionmaker(
+    bind=engine,
+    class_=AsyncSession,
+    expire_on_commit=False
+)
+
+Base = declarative_base()

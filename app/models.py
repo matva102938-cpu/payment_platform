@@ -1,3 +1,4 @@
+from app.database import Base
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Numeric, Boolean
 from sqlalchemy.sql import func
 from sqlalchemy.orm import declarative_base
