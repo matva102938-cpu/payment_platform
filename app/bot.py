@@ -411,3 +411,8 @@ async def cmd_open_ticket(msg: Message):
         return
 
     await msg.answer(f"💬 Тикет #{t.id}\ntrader_id: {t.trader_id}\nstatus: {t.status}\n\n{t.text}")
+from aiogram.filters import Command
+
+@dp.message(Command("ping"))
+async def ping(msg: Message):
+    await msg.answer("pong ✅")
