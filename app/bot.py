@@ -12,7 +12,7 @@ from app.models import Trader, Order, Ticket, Payout  # если каких-то
 
 # -------------------- CONFIG --------------------
 
-BOT_TOKEN = os.getenv("BOT_TOKEN")
+BOT_TOKEN = (os.getenv("BOT_TOKEN") or "").strip()
 if not BOT_TOKEN:
     raise RuntimeError("BOT_TOKEN is not set")
 
